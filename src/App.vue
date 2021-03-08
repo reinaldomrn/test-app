@@ -1,32 +1,46 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <q-layout view="lHh Lpr lFf">
+    <Header />
+    <q-page-container >
+      <Select />
+      <br>
+      <div class="row q-col-gutter-x-xs q-col-gutter-y-lg q-pa-lg">
+        <div class="col-2" v-for="(item, index) in destinationFilter" v-bind:key="index">
+            <Card :data="item"/>
+        </div>
+      </div>
+    </q-page-container>
+  </q-layout>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Header from './components/Header.vue'
+import Select from './components/Select.vue'
+import Card from './components/Card.vue'
 
-#nav {
-  padding: 30px;
-}
+import { mapActions, mapState } from 'vuex'
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+export default {
+  name: 'LayoutDefault',
+  components: {
+    Header,
+    Select,
+    Card
+  },
+  data () {
+    return {
+      model: ''
+    }
+  },
+  computed: {
+    ...mapState(['ports', 'destination', 'routeJsonPorts', 'routeJsonDestinations', 'destinationFilter'])
+  },
+  methods: {
+    ...mapActions(['actionSetsData', 'filterData'])
+  },
+  mounted () {
+    this.actionSetsData({ route: this.routeJsonPorts, mutation: 'setPorts', ports: true })
+    this.actionSetsData({ route: this.routeJsonDestinations, mutation: 'setDestinations', ports: false })
+  }
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
