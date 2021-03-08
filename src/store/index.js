@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-// import { Loading } from 'quasar'
 
 Vue.use(Vuex)
 
@@ -49,7 +48,6 @@ export default new Vuex.Store({
         hash[row.title] = true
         return (exists && code.indexOf(row.code) >= 0)
       }))
-      // commit('updateDestinationFilter', state.destination.filter(row => code.indexOf(row.code) >= 0))
     }
 
   },
