@@ -43,7 +43,13 @@ export default new Vuex.Store({
     },
 
     filterData ({ commit, state }, { value: code }) {
-      commit('updateDestinationFilter', state.destination.filter(row => code.indexOf(row.code) >= 0))
+      var hash = {}
+      commit('updateDestinationFilter', state.destination.filter(row => {
+        var exists = !hash[row.title]
+        hash[row.title] = true
+        return (exists && code.indexOf(row.code) >= 0)
+      }))
+      // commit('updateDestinationFilter', state.destination.filter(row => code.indexOf(row.code) >= 0))
     }
 
   },
