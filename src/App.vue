@@ -1,11 +1,11 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout>
     <Header />
     <q-page-container >
       <Select />
       <br>
       <div class="row q-col-gutter-x-xs q-col-gutter-y-lg q-pa-lg">
-        <div class="col-2" v-for="(item, index) in destinationFilter" v-bind:key="index">
+        <div class="col-md-2 col-6" v-for="(item, index) in destinationFilter" v-bind:key="index">
             <Card :data="item"/>
         </div>
       </div>
